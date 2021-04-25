@@ -1,0 +1,43 @@
+.title {
+  font-family: Arial;
+  font-size: 36px;
+  text-decoration: underline;
+  text-align: center;
+  color: transparent;
+  animation: title 1s linear alternate infinite;
+}
+
+@keyframes title {
+  from {
+    /* color: rgb(90, 248, 17); */
+    text-shadow: 0 0 1px greenyellow;
+  }
+
+  to {
+    /* color: rgb(231, 211, 27); */
+    text-shadow: 0 0 3px yellow;
+  }
+}
+
+.table {
+  text-align: center;
+}
+
+.table,
+.table th,
+.table td {
+  border: 1px solid;
+}
+
+.table tr:first-child {
+  background-color: rgb(158, 248, 218);
+}
+
+.table tr:nth-child(even) {
+  background-color:rgb(247, 232, 210);
+}
+
+.table th,
+.table td {
+  padding: 5px;
+}
