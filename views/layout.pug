@@ -1,5 +1,6 @@
 -
-  var styles='https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css'
+  const styles = 'https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css'
+  const axios = 'https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js'
 
 doctype html
 html(lang='en')
@@ -11,6 +12,10 @@ html(lang='en')
     link(rel='stylesheet' href=styles)
   body
     div.container
+      h1.my-3 Test REST API
       block content
+
+    script(src=axios)
+    block script
 
 

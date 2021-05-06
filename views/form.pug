@@ -1,0 +1,43 @@
+extends layout.pug
+
+block content
+  h2.my-3
+    case (method) 
+      when 'put'
+        | Update user
+      when 'delete'
+        | Delete user
+      default
+        | Crete new user
+
+  form(name='userForm' method='POST' action=action enctype='multipart/form-data' onsubmit='return false' data-method=(method || 'post'))
+    - let inputDisabled = method === 'delete' ? true : false
+    div.form-group.my-2
+      input(type='hidden' name='id' value=id)
+      label(for='name')
+        | Name:
+      input.form-control(name='name' id='name' required value=name disabled=inputDisabled)
+    div.form-group.my-2
+      label(for='age')
+        | Age:
+      input.form-control(name='age' id='age' required value=age disabled=inputDisabled type='number' min='18' max='120')
+    div.panel-body.my-4
+      button.btn.btn-sm.btn-primary.px-3.py-1.mr-3(type='submit' name='submit')
+        case method
+          when 'put'
+            | Update
+          when 'delete'
+            | Delete
+          default
+            | Create
+      button.btn.btn-sm.btn-primary.px-3.py-1(type='reset' name='reset' style=`display: ${method === 'delete' ? 'none' : ''}`)
+        case method
+          when 'put'
+            | Restore
+          default
+            | Reset
+  a(href='/') Back to users list
+
+block script
+  script(src='/js/form.js')
+

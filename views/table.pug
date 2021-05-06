@@ -1,0 +1,37 @@
+extends layout.pug 
+
+block content
+  h2.my-3=title
+  div.table-responsive
+    table.table.table-condensed.table-striped.table-bordered
+      colgroup
+        col(style="width:40%")
+        col(style="width:22.5%")
+        col(style="width:22.5%")
+        col(style="width:15%")
+      thead.bg-info.text-light
+        tr
+          th ID
+          th Name
+          th Age
+          th Options
+      tbody
+        each user in users
+          tr
+            td=user.id
+            td=user.name
+            td=user.age
+            td
+              a.btn.text-light.bg-primary.py-0.px-2.mr-3(
+                href=`/form/put/${user.id}`
+              ) Edit
+              a.btn.text-light.bg-primary.py-0.px-2(
+                href=`/form/delete/${user.id}`
+              ) Delete
+        tr
+          td.text-right(colspan=4)
+            a.btn.text-light.bg-primary.py-0.px-2.mr-3(
+              href='/form'
+              ) Add new user
+
+
