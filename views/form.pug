@@ -16,13 +16,13 @@ block content
       input(type='hidden' name='id' value=id)
       label(for='name')
         | Name:
-      input.form-control(name='name' id='name' required value=name disabled=inputDisabled)
+      input#name.form-control(name='name' required value=name disabled=inputDisabled)
     div.form-group.my-2
       label(for='age')
         | Age:
-      input.form-control(name='age' id='age' required value=age disabled=inputDisabled type='number' min='18' max='120')
+      input#age.form-control(name='age' required value=age disabled=inputDisabled type='number' min='18' max='120')
     div.panel-body.my-4
-      button.btn.btn-sm.btn-primary.px-3.py-1.mr-3(type='submit' name='submit')
+      button.btn.btn-sm.btn-primary.px-3.py-1.me-3(type='submit' name='submit')
         case method
           when 'put'
             | Update
@@ -37,6 +37,19 @@ block content
           default
             | Reset
   a(href='/') Back to users list
+
+  #modal.modal.fade( tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true")
+    .modal-dialog
+      .modal-content.p-3.text-center
+        .modal-header
+          h5#exampleModalLabel.modal-title Modal title
+          button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
+        .modal-body
+          p#modal__message
+        .mody-footer
+          button#modal__btn.btn.btn-danger(type="button" data-bs-dismiss="modal") OK
+  button(type='button' data-bs-toggle='modal' data-bs-target='#modal' hidden)
+    | Launch demo modal
 
 block script
   script(src='/js/form.js')

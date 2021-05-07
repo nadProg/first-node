@@ -15,18 +15,18 @@ export const getUser = ({ params: { id } }, res) => {
 
 export const createUser = ({ body }, res) => {
   db.create({ ...body })
-    .then(() => res.status(201).end())
+    .then(() => res.status(204).end())
     .catch(errorHandler(res));
 };
 
 export const updateUser = ({ body }, res) => {
   db.update({ ...body })
-    .then(() => res.status(201).end())
+    .then(() => res.status(204).end())
     .catch(errorHandler(res));
 };
 
 export const deleteUser = ({ body: { id } }, res) => {
   db.delete(id)
-    .then(() => res.status(201).end())
+    .then(() => res.status(204).end())
     .catch(errorHandler(res));
 };

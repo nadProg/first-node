@@ -3,7 +3,7 @@ import express from 'express';
 import { PORT } from './port.js';
 import { API_PATH } from './api/path.js';
 import { DB_PATH } from './db/path.js';
-import { requestLogger } from './utils/request-logger.js';
+import { requestLogger } from './utils/requestLogger.js';
 import { homeRouter } from './routers/homeRouter.js';
 import { apiUsersRouter } from './routers/apiUsersRouter.js';
 import { db } from './db/db.js';

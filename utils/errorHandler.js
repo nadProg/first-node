@@ -1,4 +1,9 @@
 export const errorHandler = (res) => (err) => {
   console.log(`${err}`.bgRed.black);
-  res.status(500).end(err.toString().split(',')[0]);
+  const code = err.statusCode;
+  if (code >= 400 && code < 500) {
+    res.status(code).end(err.message);
+  } else {
+    res.status(500).end();
+  }
 };

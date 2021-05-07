@@ -1,3 +1,6 @@
-users.json
-.vscode
 node_modules
+package-lock.json
+
+.vscode
+
+users.json
