@@ -1,12 +1,13 @@
 import axios from 'axios';
 import apiUrlResolve from '../api/urlResolve.js';
+// import { API_PATH } from '../api/path.js';
 import { errorHandler } from '../utils/errorHandler.js';
 
 export const index = (req, res) => {
   axios
     .get(apiUrlResolve(req))
-    .then((apiResponse) => res.render('table.pug', {
-      title: 'Users list',
+    .then((apiResponse) => res.render('index.pug', {
+      title: 'User list',
       users: apiResponse.data,
     }))
     .catch(errorHandler(res));

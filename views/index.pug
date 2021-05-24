@@ -1,4 +1,4 @@
-extends layout.pug 
+extends layouts/main.pug 
 
 block content
   h2.my-3=title
@@ -18,15 +18,15 @@ block content
       tbody
         each user in users
           tr
-            td=user.id
+            td=user._id
             td=user.name
             td=user.age
             td
               a.btn.text-light.bg-primary.py-0.px-2.me-3(
-                href=`/form/put/${user.id}`
+                href=`/form/put/${user._id}`
               ) Edit
               a.btn.text-light.bg-primary.py-0.px-2(
-                href=`/form/delete/${user.id}`
+                href=`/form/delete/${user._id}`
               ) Delete
         tr
           td.text-end(colspan=4)
