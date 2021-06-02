@@ -1,40 +1,37 @@
-import mongodb from 'mongodb';
+import { User } from '../model/User.js';
 import { errorHandler } from '../utils/errorHandler.js';
 
-const { ObjectID } = mongodb;
-
-export const getAllUsers = ({ app: { locals: { collection } } }, res) => {
-  collection
-    .find()
-    .toArray()
+export const getAllUsers = (req, res) => {
+  User
+    .find({})
     .then((users) => res.json(users))
     .catch(errorHandler(res));
 };
 
-export const getUser = ({ params: { id }, app: { locals: { collection } } }, res) => {
-  collection
-    .findOne({ _id: new ObjectID(id) })
+export const getUser = ({ params: { id } }, res) => {
+  User
+    .findById(id)
     .then((user) => res.json(user))
     .catch(errorHandler(res));
 };
 
-export const createUser = ({ body: { age, name }, app: { locals: { collection } } }, res) => {
-  collection
-    .insertOne({ age, name })
+export const createUser = ({ body: { age, name } }, res) => {
+  User
+    .create({ age, name })
     .then(() => res.status(204).end())
     .catch(errorHandler(res));
 };
 
-export const updateUser = ({ body: { id, age, name }, app: { locals: { collection } } }, res) => {
-  collection
-    .findOneAndUpdate({ _id: new ObjectID(id) }, { $set: { age, name } })
+export const updateUser = ({ body: { id, age, name } }, res) => {
+  User
+    .findByIdAndUpdate(id, { age, name })
     .then(() => res.status(204).end())
     .catch(errorHandler(res));
 };
 
-export const deleteUser = ({ body: { id }, app: { locals: { collection } } }, res) => {
-  collection
-    .deleteOne({ _id: new ObjectID(id) })
+export const deleteUser = ({ body: { id } }, res) => {
+  User
+    .findByIdAndDelete(id)
     .then(() => res.status(204).end())
     .catch(errorHandler(res));
 };
