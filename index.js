@@ -26,12 +26,41 @@ app.get('*', (req, res) => {
   res.status(404).end();
 });
 
-mongoose.connect(MONGO.URI, MONGO.OPTIONS)
-  .then(() => {
-    console.log(colors.bgGreen.black('MongoDB conntected successfully'));
+let server;
 
-    app.listen(PORT, () => {
-      console.log(colors.bgGreen.black(`Server listening on port ${PORT}...`));
+const shutdown = () => {
+  console.log(colors.bgWhite.black('Closing http server...'));
+  server.close(() => {
+    console.log(colors.bgWhite.black('Http server closed successfully'));
+
+    mongoose.connection.close(false, () => {
+      console.log(colors.bgWhite.black('MongoDB connection closed successfully'));
+      process.exit(0);
     });
-  })
-  .catch((err) => console.log(colors.bgRed.black(`${err}`)));
+  });
+};
+
+const start = async () => {
+  try {
+    await mongoose.connect(MONGO.URI, MONGO.OPTIONS);
+    console.log(colors.bgGreen.black('MongoDB connection opened successfully'));
+
+    server = app.listen(PORT, () => {
+      console.log(colors.bgGreen.black(`Http server is listening on port ${PORT}...`));
+    });
+
+    process.on('SIGTERM', () => {
+      console.info('SIGTERM signal received');
+      shutdown();
+    });
+
+    process.on('SIGINT', () => {
+      console.info('SIGINT signal received');
+      shutdown();
+    });
+  } catch (err) {
+    console.log(colors.bgRed.black(`${err}`));
+  }
+};
+
+start();
