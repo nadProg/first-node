@@ -1,6 +1,8 @@
-import colors from 'colors';
 import express from 'express';
 import mongoose from 'mongoose';
+import {
+  info, success, error, warn,
+} from './utils/consoleMsg.js';
 import { PORT } from './port.js';
 import { API_PATH } from './api/path.js';
 import { requestLogger } from './utils/requestLogger.js';
@@ -29,12 +31,13 @@ app.get('*', (req, res) => {
 let server;
 
 const shutdown = () => {
-  console.log(colors.bgWhite.black('Closing http server...'));
+  info('Closing http server...');
   server.close(() => {
-    console.log(colors.bgWhite.black('Http server closed successfully'));
+    success('Http server closed successfully');
 
+    info('Closing MongoDB connection...');
     mongoose.connection.close(false, () => {
-      console.log(colors.bgWhite.black('MongoDB connection closed successfully'));
+      success('MongoDB connection closed successfully');
       process.exit(0);
     });
   });
@@ -43,23 +46,23 @@ const shutdown = () => {
 const start = async () => {
   try {
     await mongoose.connect(MONGO.URI, MONGO.OPTIONS);
-    console.log(colors.bgGreen.black('MongoDB connection opened successfully'));
+    success('MongoDB connection opened successfully');
 
     server = app.listen(PORT, () => {
-      console.log(colors.bgGreen.black(`Http server is listening on port ${PORT}...`));
+      success(`Http server is listening on port ${PORT}...`);
     });
 
     process.on('SIGTERM', () => {
-      console.info('SIGTERM signal received');
+      warn('SIGTERM signal received');
       shutdown();
     });
 
     process.on('SIGINT', () => {
-      console.info('SIGINT signal received');
+      warn('SIGINT signal received');
       shutdown();
     });
   } catch (err) {
-    console.log(colors.bgRed.black(`${err}`));
+    error(`${err}`);
   }
 };
 

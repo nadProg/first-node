@@ -1,7 +1,8 @@
-import colors from 'colors';
+import { info } from './consoleMsg.js';
 
 export const requestLogger = (req, res, next) => {
-  console.log(colors.green(`${req.method} request: ${new Date()}`));
-  console.log(colors.yellow(`URL: ${req.url}`));
+  info('***');
+  info(`${req.method} request: ${new Date()}`);
+  info(`URL: ${req.url}`);
   next();
 };
